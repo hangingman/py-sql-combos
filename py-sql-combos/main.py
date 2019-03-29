@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf8 -*-
+#!/usr/bin/env python3
 
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -14,32 +13,20 @@ def do_nothing():
 def my_menu_bar(root):
     menubar = tk.Menu(root)
     filemenu = tk.Menu(menubar, tearoff=0)
-    filemenu.add_command(label="New", command=do_nothing)
-    filemenu.add_command(label="Open", command=do_nothing)
-    filemenu.add_command(label="Save", command=do_nothing)
-    filemenu.add_command(label="Save as...", command=do_nothing)
-    filemenu.add_command(label="Close", command=do_nothing)
+    filemenu.add_command(label="新規", command=do_nothing)
+    filemenu.add_command(label="開く", command=do_nothing)
+    filemenu.add_command(label="保存", command=do_nothing)
+    filemenu.add_command(label="名前を付けて保存", command=do_nothing)
+    filemenu.add_command(label="閉じる", command=do_nothing)
+    menubar.add_cascade(label="ファイル", menu=filemenu)
 
-    filemenu.add_separator()
+    config_menu = tk.Menu(menubar, tearoff=0)
+    config_menu.add_command(label="設定", command=do_nothing)
+    menubar.add_cascade(label="設定", menu=config_menu)
 
-    filemenu.add_command(label="Exit", command=root.quit)
-    menubar.add_cascade(label="File", menu=filemenu)
-    editmenu = tk.Menu(menubar, tearoff=0)
-    editmenu.add_command(label="Undo", command=do_nothing)
-
-    editmenu.add_separator()
-
-    editmenu.add_command(label="Cut", command=do_nothing)
-    editmenu.add_command(label="Copy", command=do_nothing)
-    editmenu.add_command(label="Paste", command=do_nothing)
-    editmenu.add_command(label="Delete", command=do_nothing)
-    editmenu.add_command(label="Select All", command=do_nothing)
-
-    menubar.add_cascade(label="Edit", menu=editmenu)
     helpmenu = tk.Menu(menubar, tearoff=0)
-    helpmenu.add_command(label="Help Index", command=do_nothing)
-    helpmenu.add_command(label="About...", command=do_nothing)
-    menubar.add_cascade(label="Help", menu=helpmenu)
+    helpmenu.add_command(label="このソフトウェアについて", command=do_nothing)
+    menubar.add_cascade(label="ヘルプ", menu=helpmenu)
 
     root.config(menu=menubar)
 
