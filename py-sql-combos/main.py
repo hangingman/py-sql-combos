@@ -2,7 +2,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
-
+from constants import *
 
 def do_nothing():
     file_win = tk.Toplevel(root)
@@ -49,10 +49,10 @@ def my_tabs(root):
     label1_1 = tk.Label(tab1, text="クエリ入力画面", font=("", 16), height=2)
     label1_1.pack(fill="x")
 
-    # 日付のラベルとエントリーの設定
     frame1_1 = tk.Frame(tab1, pady=10)
     frame1_1.pack()
     entry1_1 = tk.Text(frame1_1, font=("", 14), width=500, height=100)
+    entry1_1.insert(tk.END, SAMPLE_QUERY)
     entry1_1.pack(side="left")
 
     # タブ2
