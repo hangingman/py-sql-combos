@@ -2,7 +2,8 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from constants import *
+from .constants import *
+
 
 def do_nothing():
     file_win = tk.Toplevel(root)
