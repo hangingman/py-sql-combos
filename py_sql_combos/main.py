@@ -4,6 +4,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from constants import *
+import logging.config
+import os
+import logging
 
 
 def do_nothing():
@@ -81,12 +84,19 @@ def my_tabs(root):
     scroll2_1.grid(row=1, column=1, sticky='ns')
 
 
-# ウィンドウ作成
-root = tk.Tk()
-root.title(u"PySQLCombos")
-root.geometry("640x480")
-my_menu_bar(root)
-my_tabs(root)
 
-# メインループ
-root.mainloop()
+if __name__ == '__main__':
+    project_dir = os.path.dirname(os.path.abspath('__file__'))
+    logging_setting_path = os.path.join(project_dir, 'resources', 'logging', 'utiltools_log.conf')
+    logging.config.fileConfig(logging_setting_path)
+    logger = logging.getLogger('outputLogging')
+    # ウィンドウ作成
+    root = tk.Tk()
+    root.title(u"PySQLCombos")
+    root.geometry("640x480")
+    my_menu_bar(root)
+    my_tabs(root)
+
+    # メインループ
+    logger.info('PySQLCombos start !')
+    root.mainloop()
