@@ -36,6 +36,12 @@ def my_menu_bar(root):
     root.config(menu=menubar)
 
 
+def my_tab_change_event(event):
+    # タブ切り替えイベント
+    logger = get_logger()
+    logger.info('tab changed !')
+
+
 def my_tabs(root):
     # ノートブック
     nb = ttk.Notebook(width=640, height=480)
@@ -47,6 +53,7 @@ def my_tabs(root):
     nb.add(tab1, text='クエリ入力', padding=3)
     nb.add(tab2, text='クエリ解析', padding=3)
     nb.add(tab3, text='その他', padding=3)
+    nb.bind("<<NotebookTabChanged>>", my_tab_change_event)
     nb.pack(expand=1, fill='both')
 
     # タブ1
@@ -84,12 +91,15 @@ def my_tabs(root):
     scroll2_1.grid(row=1, column=1, sticky='ns')
 
 
-
-if __name__ == '__main__':
+def get_logger():
     project_dir = os.path.dirname(os.path.abspath('__file__'))
     logging_setting_path = os.path.join(project_dir, 'resources', 'logging', 'utiltools_log.conf')
     logging.config.fileConfig(logging_setting_path)
-    logger = logging.getLogger('outputLogging')
+    return logging.getLogger('outputLogging')
+
+
+if __name__ == '__main__':
+    logger = get_logger()
     # ウィンドウ作成
     root = tk.Tk()
     root.title(u"PySQLCombos")
