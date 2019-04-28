@@ -5,9 +5,16 @@
 - antlr4
 - python3
 - pip3
+- tk-dev
 
 ```
 // 必要なライブラリ追加
+$ sudo apt-get install antlr4
+$ sudo apt-get install tk-dev
+
+$ pyenv install 3.6.8
+$ pyenv global 3.6.8
+
 $ pip install -r requirements.txt
 
 // GUIの起動

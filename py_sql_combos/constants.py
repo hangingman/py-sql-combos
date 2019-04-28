@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 SAMPLE_QUERY = """SELECT
 e.name AS employee_name
 , e.email AS employee_email

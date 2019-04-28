@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from .constants import *
+from constants import *
 
 
 def do_nothing():
