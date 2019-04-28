@@ -1,5 +1,5 @@
-from ..mysql.MySqlParserListener import MySqlParserListener
-from ..mysql.MySqlParser import MySqlParser
+from mysql.MySqlParserListener import MySqlParserListener
+from mysql.MySqlParser import MySqlParser
 
 
 class BasicInfoListener(MySqlParser):

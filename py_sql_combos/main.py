@@ -7,6 +7,10 @@ from constants import *
 import logging.config
 import os
 import logging
+from ast.ast_processor import AstProcessor
+from ast.basic_info_listener import BasicInfoListener
+from mysql.MySqlLexer import *
+from mysql.MySqlParser import *
 
 
 def do_nothing():
@@ -40,6 +44,13 @@ def my_tab_change_event(event):
     # タブ切り替えイベント
     logger = get_logger()
     logger.info('tab changed !')
+
+    ast_info = AstProcessor(
+        logging, BasicInfoListener()
+    ).execute(SAMPLE_QUERY)
+
+    from pprint import pprint
+    pprint(ast_info)
 
 
 def my_tabs(root):

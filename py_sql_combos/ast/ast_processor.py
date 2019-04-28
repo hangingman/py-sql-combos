@@ -1,6 +1,6 @@
 from antlr4 import CommonTokenStream, InputStream, ParseTreeWalker
-from ..mysql.MySqlLexer import MySqlLexer
-from ..mysql.MySqlParser import MySqlParser
+from mysql.MySqlLexer import MySqlLexer
+from mysql.MySqlParser import MySqlParser
 from pprint import pformat
 
 
