@@ -10,16 +10,7 @@ class BasicInfoListener(MySqlParser):
     def enterRoot(self, ctx:MySqlParser.RootContext):
         print("**1")
         print(ctx.getText())
-        print("***")
-
-    def enterSqlStatement(self, ctx:MySqlParser.SqlStatementContext):
-        print("**2")
-        print(ctx.getText())
-        print("***")
-
-    def enterSqlStatements(self, ctx:MySqlParser.SqlStatementsContext):
-        print("**3")
-        print(ctx.getText())
+        print(ctx.toStringTree())
         print("***")
 
     def enterEveryRule(self, ctx):

@@ -47,7 +47,7 @@ def my_tab_change_event(event):
 
     ast_info = AstProcessor(
         logging, BasicInfoListener()
-    ).execute(SAMPLE_QUERY)
+    ).execute(SAMPLE_QUERY.upper())
 
     from pprint import pprint
     pprint(ast_info)
