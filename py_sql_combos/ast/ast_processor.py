@@ -14,6 +14,6 @@ class AstProcessor:
     def execute(self, input_source):
         parser = MySqlParser(CommonTokenStream(MySqlLexer(InputStream(input_source))))
         walker = ParseTreeWalker()
-        walker.walk(self.listener, parser)
+        walker.walk(self.listener, parser.root())
         self.logger.debug('Display all data extracted by AST. \n' + pformat(self.listener.ast_info, width=160))
         return self.listener.ast_info
