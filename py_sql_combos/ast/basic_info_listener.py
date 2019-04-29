@@ -38,13 +38,20 @@ class BasicInfoListener(MySqlParser):
     def enterFromClause(self, ctx:MySqlParser.FromClauseContext):
         self.ast_info['from_clause'] = ctx.getText()
 
-    def enterJoinPart(self, ctx:MySqlParser.JoinPartContext):
+    # JOINの条件を全て取得
+    def enterOuterJoin(self, ctx:MySqlParser.OuterJoinContext):
         self.ast_info['join_parts'].append(ctx.getText())
 
-    def exitJoinPart(self, ctx:MySqlParser.JoinPartContext):
+    def exitOuterJoin(self, ctx:MySqlParser.JoinPartContext):
         pass
 
+    # Joinは以下の４つある
+    # InnerJoinContext
+    # StraightJoinContext
+    # OuterJoinContext
+    # NaturalJoinContext
 
+    # 以下、動作に必要なメソッド
     def enterEveryRule(self, ctx):
         pass
 
