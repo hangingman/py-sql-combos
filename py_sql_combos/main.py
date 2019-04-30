@@ -3,6 +3,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
+from tkintertable import TableCanvas, TableModel
 from constants import *
 import logging.config
 import os
@@ -16,7 +17,10 @@ from mysql.MySqlParser import *
 class PySqlCombosUI:
 
     def __init__(self):
+        # 解析対象のクエリが入るGUI要素
         self.query_text = None
+        # クエリをAntlrで解析した後のAST要素
+        self.ast_info = None
 
     def do_nothing(self):
         file_win = tk.Toplevel(root)
@@ -53,12 +57,12 @@ class PySqlCombosUI:
         query = self.query_text.get("1.0", tk.END)
         logger.info('query = {}'.format(query))
 
-        ast_info = AstProcessor(
+        self.ast_info = AstProcessor(
             logging, BasicInfoListener()
         ).execute(query.upper())
 
         from pprint import pprint
-        pprint(ast_info)
+        pprint(self.ast_info)
 
 
     def my_tabs(self, root):
@@ -91,23 +95,10 @@ class PySqlCombosUI:
         label2_1 = tk.Label(tab2, text="クエリ解析", font=("", 16), height=2)
         label2_1.pack(fill="x")
 
-        # フレーム2_1の作成
-        frame2_1 = tk.Frame(tab2, pady=10)
-        frame2_1.pack()
-
-        # リスト2_1の作成
-        listb2_1 = tk.Listbox(frame2_1, width=20, height=7)
-        listb2_1.pack()
-
-        # スクロール2_1の作成
-        scroll2_1 = tk.Scrollbar(frame2_1, orient='v', command=listb2_1.yview)
-
-        # スクロールの設定
-        listb2_1.configure(yscrollcommand=scroll2_1.set)
-
-        # gridで配置
-        listb2_1.grid(row=1, column=0, sticky='ns')
-        scroll2_1.grid(row=1, column=1, sticky='ns')
+        tframe = tk.Frame(tab2, pady=10)
+        tframe.pack()
+        table = TableCanvas(tframe, width=500, height=100)
+        table.show()
 
 
 def get_logger():
