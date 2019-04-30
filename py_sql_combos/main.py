@@ -96,7 +96,7 @@ class PySqlCombosUI:
         label2_1.pack(fill="x")
 
         tframe = tk.Frame(tab2, pady=10)
-        tframe.pack()
+        tframe.pack(fill="x")
         table = TableCanvas(tframe, width=500, height=100)
         table.show()
 
