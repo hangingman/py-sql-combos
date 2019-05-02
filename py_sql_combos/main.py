@@ -121,4 +121,11 @@ if __name__ == '__main__':
 
     # メインループ
     logger.info('PySQLCombos start !')
-    root.mainloop()
+    while True:
+        try:
+            root.mainloop()
+            break
+        except UnicodeDecodeError:
+            # OSXでの不具合対策
+            # https://stackoverflow.com/questions/16995969/inertial-scrolling-in-mac-os-x-with-tkinter-and-python
+            pass
