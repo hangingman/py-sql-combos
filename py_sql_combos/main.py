@@ -93,10 +93,10 @@ class PySqlCombosUI:
         # タブ2
         # 入力画面ラベルの設定
         label2_1 = tk.Label(tab2, text="クエリ解析", font=("", 16), height=2)
-        label2_1.pack(fill="x")
+        label2_1.pack(fill="both")
 
         tframe = tk.Frame(tab2, pady=10)
-        tframe.pack(fill="x")
+        tframe.pack(fill="both")
         table = TableCanvas(tframe, width=500, height=100)
         table.show()
 
