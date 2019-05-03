@@ -27,7 +27,8 @@ class PySqlCombosUI:
         self.table_list_table = None
         # プロジェクト情報（ファイル化するときに使用）
         self.project_info = {
-            'query': None
+            'query': None,       # 解析対象クエリ
+            'join_tables': None, # ジョインされているテーブル
         }
 
 
@@ -76,27 +77,36 @@ class PySqlCombosUI:
             logging, BasicInfoListener()
         ).execute(query.upper())
 
-        from pprint import pprint
-        pprint(self.ast_info)
-
         # テーブル情報を更新
         model = self.table_list_table.model
-
-        print("***")
-        join_tables = self.ast_info['join_parts']
         table_list = self.ast_info['table_sources']
+
+        # ジョインされているテーブル情報の解析と整理
+        join_tables = self.ast_info['join_parts']
         join_tables = {
             i: {
                 'No': i+1,
                 'テーブル物理名': get_table_in_join_clause(table_list, k),
-                'テーブル論理名': ''
+                'テーブル論理名': '',
+                'テーブル別名': ''
             } for i, k in enumerate( join_tables )
         }
-        pprint(join_tables)
 
-        # self.table_list_table.clearData()
+        # テーブルの別名を取得する
+        for joined_t, idx in zip(self.ast_info['join_parts'], join_tables):
+            # SQLの予約語でリプレイス
+            joined_t = joined_t.replace("JOIN", " JOIN ")
+            joined_t = joined_t.replace("ON", " ON ")
+            joined_t = joined_t.replace("AS", " AS ")
+
+            joined_table_arr = joined_t.split(" ")
+            alias = joined_table_arr[joined_table_arr.index("AS")+1]
+            join_tables[idx]['テーブル別名'] = alias
+
         model.importDict(join_tables)
         self.table_list_table.redraw()
+        # プロジェクト情報にデータを保存する
+        self.project_info['join_tables'] = join_tables
 
 
     def my_tabs(self, root):
