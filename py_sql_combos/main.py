@@ -22,6 +22,10 @@ class PySqlCombosUI:
         self.query_text = None
         # クエリをAntlrで解析した後のAST要素
         self.ast_info = None
+        # クエリにつながるテーブル情報
+        self.table_list_data = None
+        self.table_list_table = None
+
 
     def do_nothing(self):
         file_win = tk.Toplevel(root)
@@ -67,7 +71,23 @@ class PySqlCombosUI:
         from pprint import pprint
         pprint(self.ast_info)
 
-        #
+        # テーブル情報を更新
+        model = self.table_list_table.model
+
+        print("***")
+        join_tables = self.ast_info['join_parts']
+        join_tables = {
+            i: {
+                'No': i+1,
+                'テーブル物理名': k,
+                'テーブル論理名': ''
+            } for i, k in enumerate( join_tables )
+        }
+        pprint(join_tables)
+
+        self.table_list_table.clearData()
+        model.importDict(join_tables)
+        self.table_list_table.redraw()
 
 
     def my_tabs(self, root):
@@ -104,18 +124,17 @@ class PySqlCombosUI:
         def_frame = tk.Frame(tab2, pady=10)
         def_frame.pack(fill="both")
 
-        table_list_data = {
+        self.table_list_data = {
             '': {
                 'No': 1, 'テーブル物理名': 'employee', 'テーブル論理名': '従業員テーブル'
             }
         }
-
-        table = TableCanvas(def_frame,
-                            width=500,
-                            height=100,
-                            editable=False,
-                            data=table_list_data)
-        table.show()
+        self.table_list_table = TableCanvas(def_frame,
+                                            width=500,
+                                            height=100,
+                                            editable=False,
+                                            data=self.table_list_data)
+        self.table_list_table.show()
 
         label2_2 = tk.Label(tab2, text="データパターン", font=("", 16), height=2)
         label2_2.pack(fill="both")
