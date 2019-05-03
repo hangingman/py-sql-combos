@@ -3,7 +3,6 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
-from paphra_tktable import table as tktable
 from tkintertable import TableCanvas, TableModel
 from constants import *
 from util import *
@@ -26,6 +25,10 @@ class PySqlCombosUI:
         # クエリにつながるテーブル情報
         self.table_list_data = None
         self.table_list_table = None
+        # プロジェクト情報（ファイル化するときに使用）
+        self.project_info = {
+            'query': None
+        }
 
 
     def do_nothing(self):
@@ -62,7 +65,11 @@ class PySqlCombosUI:
 
         # フォームに入力されたクエリを読み取る
         query = self.query_text.get("1.0", tk.END)
+        if self.project_info['query'] == query:
+            return
+
         logger.info('query = {}'.format(query))
+        self.project_info['query'] = query
 
         # Antlrで解析する
         self.ast_info = AstProcessor(
