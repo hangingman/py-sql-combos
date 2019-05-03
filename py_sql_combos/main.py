@@ -6,6 +6,7 @@ import tkinter.ttk as ttk
 from paphra_tktable import table as tktable
 from tkintertable import TableCanvas, TableModel
 from constants import *
+from util import *
 import logging.config
 import os
 import logging
@@ -76,16 +77,17 @@ class PySqlCombosUI:
 
         print("***")
         join_tables = self.ast_info['join_parts']
+        table_list = self.ast_info['table_sources']
         join_tables = {
             i: {
                 'No': i+1,
-                'テーブル物理名': k,
+                'テーブル物理名': get_table_in_join_clause(table_list, k),
                 'テーブル論理名': ''
             } for i, k in enumerate( join_tables )
         }
         pprint(join_tables)
 
-        self.table_list_table.clearData()
+        # self.table_list_table.clearData()
         model.importDict(join_tables)
         self.table_list_table.redraw()
 
@@ -124,11 +126,7 @@ class PySqlCombosUI:
         def_frame = tk.Frame(tab2, pady=10)
         def_frame.pack(fill="both")
 
-        self.table_list_data = {
-            '': {
-                'No': 1, 'テーブル物理名': 'employee', 'テーブル論理名': '従業員テーブル'
-            }
-        }
+        self.table_list_data = {}
         self.table_list_table = TableCanvas(def_frame,
                                             width=500,
                                             height=100,
@@ -172,7 +170,7 @@ if __name__ == '__main__':
     # ウィンドウ作成
     root = tk.Tk()
     root.title(u"PySQLCombos")
-    root.geometry("640x480")
+    root.geometry("1020x640")
 
     py_sql_combo = PySqlCombosUI()
     py_sql_combo.my_menu_bar(root)
