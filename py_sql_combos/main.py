@@ -54,15 +54,19 @@ class PySqlCombosUI:
         logger = get_logger()
         logger.info('tab changed !')
 
+        # フォームに入力されたクエリを読み取る
         query = self.query_text.get("1.0", tk.END)
         logger.info('query = {}'.format(query))
 
+        # Antlrで解析する
         self.ast_info = AstProcessor(
             logging, BasicInfoListener()
         ).execute(query.upper())
 
         from pprint import pprint
         pprint(self.ast_info)
+
+        #
 
 
     def my_tabs(self, root):
@@ -97,7 +101,17 @@ class PySqlCombosUI:
 
         tframe = tk.Frame(tab2, pady=10)
         tframe.pack(fill="both")
-        table = TableCanvas(tframe, width=500, height=100)
+
+        data = {
+            'rec1': {'col1': 99.88, 'col2': 108.79, 'label': 'rec1'},
+            'rec2': {'col1': 99.88, 'col2': 108.79, 'label': 'rec2'}
+        }
+
+        table = TableCanvas(tframe,
+                            width=500,
+                            height=100,
+                            editable=True,
+                            data=data)
         table.show()
 
 
