@@ -3,6 +3,7 @@
 
 import tkinter as tk
 import tkinter.ttk as ttk
+from paphra_tktable import table as tktable
 from tkintertable import TableCanvas, TableModel
 from constants import *
 import logging.config
@@ -96,21 +97,46 @@ class PySqlCombosUI:
 
         # タブ2
         # 入力画面ラベルの設定
-        label2_1 = tk.Label(tab2, text="クエリ解析", font=("", 16), height=2)
+        label2_1 = tk.Label(tab2, text="テーブル定義", font=("", 16), height=2)
         label2_1.pack(fill="both")
 
-        tframe = tk.Frame(tab2, pady=10)
-        tframe.pack(fill="both")
+        # from句のテーブル一覧
+        def_frame = tk.Frame(tab2, pady=10)
+        def_frame.pack(fill="both")
 
-        data = {
-            'rec1': {'col1': 99.88, 'col2': 108.79, 'label': 'rec1'},
-            'rec2': {'col1': 99.88, 'col2': 108.79, 'label': 'rec2'}
+        table_list_data = {
+            '': {
+                'No': 1, 'テーブル物理名': 'employee', 'テーブル論理名': '従業員テーブル'
+            }
         }
 
-        table = TableCanvas(tframe,
+        table = TableCanvas(def_frame,
                             width=500,
                             height=100,
-                            editable=True,
+                            editable=False,
+                            data=table_list_data)
+        table.show()
+
+        label2_2 = tk.Label(tab2, text="データパターン", font=("", 16), height=2)
+        label2_2.pack(fill="both")
+
+        # データパターンの入力（仮）
+        pattern_frame = tk.Frame(tab2, pady=10)
+        pattern_frame.pack(fill="both")
+
+        data = {
+            '1': {
+                'emp_no': 'null'
+            },
+            '2': {
+                'emp_no': '9999'
+            },
+        }
+
+        table = TableCanvas(pattern_frame,
+                            width=500,
+                            height=100,
+                            editable=False,
                             data=data)
         table.show()
 
